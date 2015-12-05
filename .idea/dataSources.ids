@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - mvc_lab_2@localhost" uuid="6df5d56e-17c0-4d91-9cbf-0efab86241d3">
+    <database-info product="MySQL" version="5.6.27-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="mvc_lab_2"/>
+    <table name="author" schema="" catalog="mvc_lab_2" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="first_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="patronymic" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="birthday_date" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_Author_Author_Books" table="author_books" schema="" catalog="mvc_lab_2" columns="author_id"/>
+      <exported-key name="FKgc3djgf7woau8knnu3e6q1kvp" table="author_books" schema="" catalog="mvc_lab_2" columns="author_id"/>
+    </table>
+    <table name="author_books" schema="" catalog="mvc_lab_2" type="TABLE">
+      <column name="author_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="books_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="author_id,books_id"/>
+      <foreign-key name="FK9eot7e15786lrxt0une99unsv" columns="books_id" ref-table="books" ref-schema="" ref-catalog="mvc_lab_2" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_Author_Author_Books" columns="author_id" ref-table="author" ref-schema="" ref-catalog="mvc_lab_2" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_Books_Author_Books" columns="books_id" ref-table="books" ref-schema="" ref-catalog="mvc_lab_2" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKgc3djgf7woau8knnu3e6q1kvp" columns="author_id" ref-table="author" ref-schema="" ref-catalog="mvc_lab_2" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK9eot7e15786lrxt0une99unsv" unique="false" columns="books_id"/>
+    </table>
+    <table name="books" schema="" catalog="mvc_lab_2" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="genre" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK9eot7e15786lrxt0une99unsv" table="author_books" schema="" catalog="mvc_lab_2" columns="books_id"/>
+      <exported-key name="FK_Books_Author_Books" table="author_books" schema="" catalog="mvc_lab_2" columns="books_id"/>
+      <index name="name" unique="true" columns="name"/>
+    </table>
+  </data-source>
+</component>
