@@ -22,8 +22,8 @@
       <column name="books_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="author_id,books_id"/>
       <foreign-key name="FK9eot7e15786lrxt0une99unsv" columns="books_id" ref-table="books" ref-schema="" ref-catalog="mvc_lab_2" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="FK_Author_Author_Books" columns="author_id" ref-table="author" ref-schema="" ref-catalog="mvc_lab_2" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="FK_Books_Author_Books" columns="books_id" ref-table="books" ref-schema="" ref-catalog="mvc_lab_2" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_Author_Author_Books" columns="author_id" ref-table="author" ref-schema="" ref-catalog="mvc_lab_2" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_Books_Author_Books" columns="books_id" ref-table="books" ref-schema="" ref-catalog="mvc_lab_2" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="FKgc3djgf7woau8knnu3e6q1kvp" columns="author_id" ref-table="author" ref-schema="" ref-catalog="mvc_lab_2" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="FK9eot7e15786lrxt0une99unsv" unique="false" columns="books_id"/>
     </table>

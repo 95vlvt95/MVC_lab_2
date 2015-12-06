@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,8 +28,12 @@ public class Author {
     @Column(name = "birthday_date")
     private Calendar birthdayDate;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Books> books;
+//    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,  cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "author_books",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "books_id"))
+    private Set<Books> books = new HashSet<Books>();
 
     public long getId() {
         return id;
@@ -78,16 +83,13 @@ public class Author {
         this.books = books;
     }
 
-    public void addBooks(Books book){
-        books.add(book);
-    }
-
     public Author() {
     }
 
-    public Author(String firstName, String lastName) {
+    public Author(String firstName, String lastName, Calendar birthdayDate) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.birthdayDate = birthdayDate;
     }
 
     public Author(String firstName, String lastName, String patronymic, Calendar birthdayDate, Set<Books> books){

@@ -19,9 +19,8 @@ public class AppController {
 
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String listAuthorBooks(ModelMap model){
-
-        List<Author> author1 = authorService.findByFirstName("Гоголь");
-        model.addAttribute("author1", author1);
+        List<Author> authorList = authorService.findByFirstName("Гоголь");
+        model.addAttribute("author1", authorList);
         return "mypage";
     }
 }

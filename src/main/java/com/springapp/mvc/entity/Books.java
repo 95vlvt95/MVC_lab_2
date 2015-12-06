@@ -3,6 +3,7 @@ package com.springapp.mvc.entity;
 import com.google.common.base.Objects;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,11 +23,12 @@ public class Books {
     @Column
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "author_books",
-            joinColumns = @JoinColumn(name = "books_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> authors;
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "author_books",
+//            joinColumns = @JoinColumn(name = "books_id"),
+//            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    private Set<Author> authors = new HashSet<Author>();
 
     public long getId() {
         return id;
@@ -68,10 +70,6 @@ public class Books {
         this.authors = authors;
     }
 
-    public void addAuthors(Author author){
-        authors.add(author);
-    }
-
     public Books() {
     }
 
@@ -85,6 +83,7 @@ public class Books {
         this.name = name;
     }
 
+    //equals() & hashCode() without getAuthors!
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,12 +92,11 @@ public class Books {
         return Objects.equal(getId(), books.getId()) &&
                 Objects.equal(getGenre(), books.getGenre()) &&
                 Objects.equal(getDescription(), books.getDescription()) &&
-                Objects.equal(getName(), books.getName()) &&
-                Objects.equal(getAuthors(), books.getAuthors());
+                Objects.equal(getName(), books.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId(), getGenre(), getDescription(), getName(), getAuthors());
+        return Objects.hashCode(getId(), getGenre(), getDescription(), getName());
     }
 }

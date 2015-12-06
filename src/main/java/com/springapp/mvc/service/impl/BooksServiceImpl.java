@@ -26,6 +26,10 @@ public class BooksServiceImpl implements BooksService{
         return (List<Books>) booksRepository.findAll();
     }
 
+    public Books findByName(String name) {
+        return booksRepository.findByName(name);
+    }
+
     public Books addOrEditBook(Books book) {
         return booksRepository.save(book);
     }

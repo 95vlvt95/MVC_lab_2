@@ -26,13 +26,6 @@ public class MyTest {
     @Autowired
     BooksService bookService;
 
-    @Test
-    public void deleteTest(){
-        authorService.deleteAll();
-        bookService.deleteAll();
-    }
-
-
     //@Test
     public void manyToManyTest(){
         Books books1 = new Books("Комедия", "Комедия в пяти действиях русского писателя Николая Васильевича Гоголя", "Ревизор");
@@ -42,42 +35,44 @@ public class MyTest {
         Books books5 = new Books("Драма", "Третье по счету крупное прозаическое произведение ирландского писателя Сэмюэля Беккета и первый опубликованный роман.", "Мерфи");
         Books books6 = new Books("Драма", "Первое крупное прозаическое произведение ирландского писателя Сэмюэля Беккета.", "Мечты о женщинах, красивых и так себе");
 
-        Set<Books> booksSet1 = new HashSet<Books>();
+        Set<Books> booksSet1 = new HashSet<>();
         booksSet1.add(books1);
         booksSet1.add(books2);
 
-        Set<Books> booksSet2 = new HashSet<Books>();
+        Set<Books> booksSet2 = new HashSet<>();
         booksSet2.add(books3);
         booksSet2.add(books4);
         booksSet2.add(books5);
         booksSet2.add(books6);
 
         Author author1 = new Author("Гоголь", "Николай", "Василиевич",
-                new GregorianCalendar(1809, Calendar.MARCH, 20),
-                booksSet1);
+                new GregorianCalendar(1809, Calendar.MARCH, 20), booksSet1);
         Author author2 = new Author("Сэмюэл", "Баркли", "Беккет",
-                new GregorianCalendar(1906, Calendar.APRIL, 13),
-                booksSet2);
-
-
-//        bookService.addOrEditBook(books1);
-//        bookService.addOrEditBook(books2);
-//        bookService.addOrEditBook(books3);
-//        bookService.addOrEditBook(books4);
-//        bookService.addOrEditBook(books5);
-//        bookService.addOrEditBook(books6);
+                new GregorianCalendar(1906, Calendar.APRIL, 13), booksSet2);
 
         authorService.addOrEditAuthor(author1);
         authorService.addOrEditAuthor(author2);
     }
 
     //@Test
-    public void findAuthor(){
-        List<Author> authors = authorService.findByFirstName("Гоголь");
-        System.out.println(authors.get(0).getFirstName());
-//        for(Author a : authors){
-//            //System.out.println(a.getFirstName()+"\n");
-//            //assertEquals("Гоголь", a.getFirstName());
-//        }
+    public void deleteBookTest(){
+        Books book = bookService.findByName("Маллой");
+        List<Author> authorsList = authorService.findAll();
+        for(Author a : authorsList){
+            //Удаляет из author_books
+            a.getBooks().remove(book);
+        }
+        //Удаляет из books
+        bookService.delete(book.getId());
+    }
+
+    @Test
+    public void deleteAllAuthorTest(){
+        authorService.deleteAll();
+    }
+
+    //@Test
+    public void deleteAllBooksTest(){
+        bookService.deleteAll();
     }
 }
