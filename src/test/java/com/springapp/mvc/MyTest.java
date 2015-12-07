@@ -10,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring-config.xml")
-@Transactional
+//@Transactional
 @TransactionConfiguration(defaultRollback = false)
 public class MyTest {
 
@@ -24,7 +23,7 @@ public class MyTest {
     AuthorService authorService;
 
     @Autowired
-    BooksService bookService;
+    BooksService booksService;
 
     //@Test
     public void manyToManyTest(){
@@ -56,23 +55,33 @@ public class MyTest {
 
     //@Test
     public void deleteBookTest(){
-        Books book = bookService.findByName("Маллой");
+        Books book = booksService.findByName("Маллой");
         List<Author> authorsList = authorService.findAll();
         for(Author a : authorsList){
             //Удаляет из author_books
             a.getBooks().remove(book);
         }
         //Удаляет из books
-        bookService.delete(book.getId());
+        booksService.delete(book.getId());
     }
 
-    @Test
+    //@Test
     public void deleteAllAuthorTest(){
         authorService.deleteAll();
     }
 
     //@Test
     public void deleteAllBooksTest(){
-        bookService.deleteAll();
+        booksService.deleteAll();
+    }
+
+    @Test
+    public void getAuthorBooksTest(){
+        Author author = authorService.findOne(34);
+        Set<Books> booksSet = author.getBooks();
+
+        for(Books b : booksSet){
+            System.out.println(b.getName() + b.getGenre());
+        }
     }
 }
