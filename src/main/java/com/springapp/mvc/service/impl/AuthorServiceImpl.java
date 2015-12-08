@@ -34,6 +34,12 @@ public class AuthorServiceImpl implements AuthorService{
         return authorRepository.findByLastName(lastName);
     }
 
+    @Override
+    public Author findByFirstNameAndLastName(String firstName, String lastName) {
+        return authorRepository.findByFirstNameAndLastName(firstName, lastName);
+    }
+
+
     public Author addOrEditAuthor(Author author) {
         return authorRepository.save(author);
     }

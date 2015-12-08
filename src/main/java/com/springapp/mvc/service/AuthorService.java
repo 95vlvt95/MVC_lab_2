@@ -9,6 +9,7 @@ public interface AuthorService {
     List<Author> findAll();
     List<Author> findByFirstName(String firstName);
     List<Author> findByLastName(String lastName);
+    Author findByFirstNameAndLastName(String firstName, String lastName);
     Author addOrEditAuthor(Author author);
     //void saveAll(Iterable<Author> authors);
     void delete(long id);
